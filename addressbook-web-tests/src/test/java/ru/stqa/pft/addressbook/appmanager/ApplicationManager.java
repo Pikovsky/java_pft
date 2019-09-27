@@ -7,7 +7,7 @@ import static org.testng.Assert.fail;
 
 public class ApplicationManager {
   private WebDriver wd;
-  private KatalonHelper katalonHelper;
+  protected StringBuffer verificationErrors = new StringBuffer();
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
@@ -20,13 +20,12 @@ public class ApplicationManager {
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
-    katalonHelper = new KatalonHelper(wd);
     sessionHelper.login("admin", "secret");
   }
 
   public void stop() {
     wd.quit();
-    String verificationErrorString = katalonHelper.verificationErrors.toString();
+    String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
     }
@@ -42,9 +41,5 @@ public class ApplicationManager {
 
   public SessionHelper getSessionHelper() {
     return sessionHelper;
-  }
-
-  public KatalonHelper getKatalonHelper() {
-    return katalonHelper;
   }
 }
