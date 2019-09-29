@@ -26,7 +26,7 @@ public class HelperBase {
   }
 
   // Эта функция определяет вылетели ли мы в окно alert?
-  private boolean isAlertPresent() {        // Эта ф-я была и у Баранцева в Selenium Builder.
+  public boolean isAlertPresent() {        // Эта ф-я была и у Баранцева в Selenium Builder.
     try {                                   // Баранцев сказал, что её можно было и удалить,
       wd.switchTo().alert();                // но потом объяснял на ней механизм исключений.
       return true;
@@ -36,7 +36,7 @@ public class HelperBase {
   }
 
   // Думаю, что функци получает сообщение окна alert, и выходит из него.
-  private String closeAlertAndGetItsText() { // а остальных и не было.
+  public String closeAlertAndGetItsText() { // а остальных и не было.
     try {
       Alert alert = wd.switchTo().alert();
       String alertText = alert.getText();
@@ -51,10 +51,10 @@ public class HelperBase {
     }
   }
 
-  // Очевидн, эта функция тестирует наличие элемента на странице.
-  private boolean isElementPresent(By by) {  // а остальных и не было.
+  // функция тестирует наличие элемента на странице.
+  public boolean isElementPresent(By locator) {  // а остальных и не было.
     try {
-      wd.findElement(by);
+      wd.findElement(locator);
       return true;
     } catch (NoSuchElementException e) {
       return false;
