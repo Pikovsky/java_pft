@@ -38,7 +38,21 @@ public class ContactHelper extends HelperBase {
     click(By.cssSelector("img[alt='Edit']"));
   }
 
+  //3.10
+  public void selectContact(int index){
+    wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
   public void submitContactModification(){
     click(By.name("update"));
+  }
+
+  public void deleteSelectedContact() {
+    click(By.cssSelector("input[value='Delete']"));
+  }
+
+  public void acceptDeletionContact() {
+
+    wd.switchTo().alert().accept();
   }
 }

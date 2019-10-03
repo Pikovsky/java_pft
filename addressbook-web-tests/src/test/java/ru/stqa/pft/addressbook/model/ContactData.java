@@ -17,6 +17,7 @@ public class ContactData {
   public String getFirstname() {
     return firstname;
   }
+
   public String getLastname() {
     return secondname;
   }
