@@ -51,15 +51,15 @@ public class ApplicationManager {
     wd.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
+      fail(verificationErrorString); //Fails a test with the given message.
     }
   }
 
-  public GroupHelper getGroupHelper() {
+  public GroupHelper group() {
     return groupHelper;
   }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
 
