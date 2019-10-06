@@ -17,7 +17,7 @@ public class ContactModificationTests extends TestBase {
     }
   }
 
-  @Test//(enabled=false)
+  @Test(enabled=false)
   public void testContactModification(){
     app.goTo().homePage();
     if (app.contact().list().size() == 0) {
