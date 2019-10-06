@@ -9,17 +9,15 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test(enabled=false)
+  @Test//(enabled=false)
   public void testContactCreation(){
-    app.goTo().gotoHomePage();
-    List<ContactData> before = app.getContactHelper().getContactList();
+    app.goTo().homePage();
+    List<ContactData> before = app.contact().list();
     ContactData contact = new ContactData( "test_name", "test_surname", "test1");
-    app.getContactHelper().createContact(contact);
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().create(contact);
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
     before.add(contact);
-//    contact.setId(after.stream().max((с1, с2) -> Integer.compare(с1.getId(), с2.getId() )).get().getId());
-//    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     before.sort(byId);
     after.sort(byId);
