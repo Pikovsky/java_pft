@@ -5,7 +5,7 @@ import com.google.common.collect.ForwardingSet;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Groups extends ForwardingSet {
+public class Groups extends ForwardingSet<GroupData> {
 
   private Set<GroupData> delegate;
 
@@ -33,5 +33,4 @@ public class Groups extends ForwardingSet {
     groups.remove(group);
     return groups;
   }
-
 }
