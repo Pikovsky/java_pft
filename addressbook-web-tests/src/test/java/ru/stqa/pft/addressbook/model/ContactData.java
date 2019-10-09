@@ -8,17 +8,18 @@ public class ContactData {
   private String firstname;
   private String secondname;
   private String group;
+  private String homePhone;
+  private String mobilePhone;
+  private String workPhone;
 
   public ContactData withId(int id) {
     this.id = id;
     return this;
   }
-
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;
   }
-
   public ContactData withLastname(String secondname) {
     this.secondname = secondname;
     return this;
@@ -29,12 +30,39 @@ public class ContactData {
     return this;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public ContactData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public ContactData withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
+  }
+
+  public ContactData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+    return this;
   }
 
   public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getFirstname() {
