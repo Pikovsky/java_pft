@@ -13,9 +13,21 @@ public class ContactData {
   private String workPhone;
   private String allPhones;
 
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
   public ContactData withId(int id) {
     this.id = id;
     return this;
+  }
+
+  public String getFirstname() {
+    return firstname;
   }
 
   public ContactData withFirstname(String firstname) {
@@ -23,14 +35,24 @@ public class ContactData {
     return this;
   }
 
+  public String getLastname() {
+    return secondname;
+  }
+
   public ContactData withLastname(String secondname) {
     this.secondname = secondname;
     return this;
   }
+
+  public String getGroup() {
+    return group;
+  }
+
   public ContactData withGroup(String group) {
     this.group = group;
     return this;
   }
+
   public String getHomePhone() {
     return homePhone;
   }
@@ -65,26 +87,6 @@ public class ContactData {
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getFirstname() {
-    return firstname;
-  }
-
-  public String getLastname() {
-    return secondname;
-  }
-
-  public String getGroup() {
-    return group;
   }
 
   @Override
