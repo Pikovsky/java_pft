@@ -32,10 +32,9 @@ public class ContactModificationTests extends TestBase {
             .withFirstname("test_name")
             .withLastname("test_surname");
     app.contact().modify(contact);
+    assertThat(app.contact().count(), equalTo(before.size()));
+
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size()));
-//    before.remove(contactModified);
-//    before.add(contact);
     assertThat(after, equalTo(
             before.without(contactModified).withAdded(contact)));
   }
