@@ -21,10 +21,18 @@ public class ContactAddressTests extends TestBase {
   }
 
   @Test//(enabled = false)
-  public void testContactPhones() {
+  public void testContactAddress() {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-    assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
+    assertThat(contact.getAddress(), equalTo(cleaned(contactInfoFromEditForm.getAddress())));
+  }
+
+  public static String cleaned(String address){
+    return address
+            .replaceAll("^\\s+|\\s+$", "")  // убираем "пробелы" вначале и конце адреса.
+            .replaceAll(" +\\n", "\n")      // убираем пробелы перед переводом строки.
+            .replaceAll("\\n +", "\n")      // убираем пробелы после переводом строки.
+            .replaceAll("\\s{2,}", " ");    // заменяем сдвоеные "пробелы" на один пробел.
   }
 }
