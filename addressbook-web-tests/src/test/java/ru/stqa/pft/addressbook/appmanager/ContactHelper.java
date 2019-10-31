@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
@@ -146,5 +148,21 @@ public class ContactHelper extends HelperBase {
 //    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a",id))).click();
 //    wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a",id))).click();
 //    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s",id))).click();
+  }
+
+  public List<String> infoFromViewForm(ContactData contact) {
+    initContactViewById(contact.getId());
+    List<String> result = Arrays.asList(wd.findElement(By.xpath("//div[@id='content']"))
+            .getText()
+            .split("\n"))
+            .stream()
+            .filter(s -> ! s.equals(""))
+            .collect(Collectors.toList());
+    wd.navigate().back();
+    return result;
+  }
+
+  private void initContactViewById(int id) {
+    wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s",id))).click();
   }
 }
