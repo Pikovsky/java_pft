@@ -25,7 +25,7 @@ public class ContactInfoPageTests extends TestBase {
     }
   }
 
-  @Test//(enabled = false)
+  @Test(enabled = false)
   public void testContactViewForm() {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
