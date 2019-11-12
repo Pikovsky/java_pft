@@ -1,0 +1,54 @@
+[
+  {
+    "firstname": "firstname 0",
+    "secondname": "lastname 0",
+    "group": "group1",
+    "homePhone": "110",
+    "mobilePhone": "330",
+    "workPhone": "220",
+    "address": "address 0",
+    "Email": "a0@gmail.com",
+    "Email2": "b0@gmail.com",
+    "Email3": "c0@gmail.com",
+    "photo": "src\\test\\resources\\stru.png"
+  },
+  {
+    "firstname": "firstname 1",
+    "secondname": "lastname 1",
+    "group": "group1",
+    "homePhone": "111",
+    "mobilePhone": "331",
+    "workPhone": "221",
+    "address": "address 1",
+    "Email": "a1@gmail.com",
+    "Email2": "b1@gmail.com",
+    "Email3": "c1@gmail.com",
+    "photo": "src\\test\\resources\\stru.png"
+  },
+  {
+    "firstname": "firstname 2",
+    "secondname": "lastname 2",
+    "group": "group1",
+    "homePhone": "112",
+    "mobilePhone": "332",
+    "workPhone": "222",
+    "address": "address 2",
+    "Email": "a2@gmail.com",
+    "Email2": "b2@gmail.com",
+    "Email3": "c2@gmail.com",
+    "photo": "src\\test\\resources\\stru.png"
+  },
+  {
+    "firstname": "firstname 3",
+    "secondname": "lastname 3",
+    "group": "group1",
+    "homePhone": "113",
+    "mobilePhone": "333",
+    "workPhone": "223",
+    "address": "address 3",
+    "Email": "a3@gmail.com",
+    "Email2": "b3@gmail.com",
+    "Email3": "c3@gmail.com",
+    "photo": "src\\test\\resources\\stru.png"
+  }
+]

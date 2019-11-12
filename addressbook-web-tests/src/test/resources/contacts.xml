@@ -1,0 +1,54 @@
+<list>
+  <contact>
+    <firstname>firstname 0</firstname>
+    <secondname>lastname 0</secondname>
+    <group>group1</group>
+    <homePhone>110</homePhone>
+    <mobilePhone>330</mobilePhone>
+    <workPhone>220</workPhone>
+    <address>address 0</address>
+    <Email>a0@gmail.com</Email>
+    <Email2>b0@gmail.com</Email2>
+    <Email3>c0@gmail.com</Email3>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <firstname>firstname 1</firstname>
+    <secondname>lastname 1</secondname>
+    <group>group1</group>
+    <homePhone>111</homePhone>
+    <mobilePhone>331</mobilePhone>
+    <workPhone>221</workPhone>
+    <address>address 1</address>
+    <Email>a1@gmail.com</Email>
+    <Email2>b1@gmail.com</Email2>
+    <Email3>c1@gmail.com</Email3>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <firstname>firstname 2</firstname>
+    <secondname>lastname 2</secondname>
+    <group>group1</group>
+    <homePhone>112</homePhone>
+    <mobilePhone>332</mobilePhone>
+    <workPhone>222</workPhone>
+    <address>address 2</address>
+    <Email>a2@gmail.com</Email>
+    <Email2>b2@gmail.com</Email2>
+    <Email3>c2@gmail.com</Email3>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <firstname>firstname 3</firstname>
+    <secondname>lastname 3</secondname>
+    <group>group1</group>
+    <homePhone>113</homePhone>
+    <mobilePhone>333</mobilePhone>
+    <workPhone>223</workPhone>
+    <address>address 3</address>
+    <Email>a3@gmail.com</Email>
+    <Email2>b3@gmail.com</Email2>
+    <Email3>c3@gmail.com</Email3>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+</list>
