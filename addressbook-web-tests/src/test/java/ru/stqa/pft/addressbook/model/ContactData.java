@@ -3,42 +3,83 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name="addressbook")
 public class ContactData {
 
   @XStreamOmitField
+  @Id
+  @Column(name = "id") // Эту аннотацию можно было не указывать, т.к. имена класса и столбца совпадают
   private int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column(name = "firstname") // Эту аннотацию можно было не указывать, т.к. имена класса и столбца совпадают
   private String firstname;
+
   @Expose
+  @Column(name = "lastname")
   private String secondname;
+
   @Expose
+  @Transient
   private String group;
+  //transient private String group;
+
   @Expose
+  @Column(name = "home")
+  @Type(type="text")
   private String homePhone;
+
   @Expose
+  @Column(name = "mobile")
+  @Type(type="text")
   private String mobilePhone;
+
   @Expose
+  @Column(name = "work")
+  @Type(type="text")
   private String workPhone;
+
   @XStreamOmitField
+  @Transient
   private String allPhones;
+
   @Expose
+  @Column(name = "address") // Эту аннотацию можно было не указывать, т.к. имена класса и столбца совпадают
+  @Type(type="text")
   private String address;
+
   @Expose
+  @Column(name = "email")
+  @Type(type="text")
   private String Email;
+
   @Expose
+  @Column(name = "email2")
+  @Type(type="text")
   private String Email2;
+
   @Expose
+  @Column(name = "email3")
+  @Type(type="text")
   private String Email3;
+
   @XStreamOmitField
+  @Transient
   private String allEmails;
+
   @Expose
-  private String photo;
-  //private File photo;
+  @Column(name = "photo") // Эту аннотацию можно было не указывать, т.к. имена класса и столбца совпадают
+  @Type(type="text")
+  private String photo; // В БД этот столбец типа mediumtext, что ближе к Strng. По этому
+  //private File photo; // меняем тип поля, а преобразования проводим в getter/setter-ах.
 
   public File getPhoto() {
     return new File(photo);
