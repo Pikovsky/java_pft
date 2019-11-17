@@ -22,6 +22,7 @@ public class ApplicationManager {
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
   private String browser;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -32,12 +33,15 @@ public class ApplicationManager {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
+    dbHelper = new DbHelper();
+
     System.setProperty("webdriver.gecko.driver",  properties.getProperty("gecko.driver","libs/geckodriver.exe"));
     System.setProperty("webdriver.chrome.driver", properties.getProperty("chrome.driver","libs/chromedriver.exe"));
     System.setProperty("webdriver.ie.driver",     properties.getProperty("ie.driver","libs/IEDriverServer.exe"));
     //System.setProperty("webdriver.gecko.driver", "libs/geckodriver.exe");
     //System.setProperty("webdriver.chrome.driver", "libs/chromedriver.exe");
     //System.setProperty("webdriver.ie.driver", "libs/IEDriverServer.exe");
+
 
     if (browser.equals(BrowserType.FIREFOX)){
       wd = new FirefoxDriver();
@@ -57,6 +61,7 @@ public class ApplicationManager {
 
     //sessionHelper.login("admin", "secret");
     sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+
   }
 
   public void stop() {
@@ -81,5 +86,9 @@ public class ApplicationManager {
 
   public ContactHelper contact() {
     return contactHelper;
+  }
+
+  public DbHelper db() {
+    return dbHelper;
   }
 }
