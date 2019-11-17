@@ -5,10 +5,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.security.cert.CollectionCertStoreParameters;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestBase {
 
@@ -35,5 +41,16 @@ public class TestBase {
   @AfterMethod(alwaysRun = true)
   public void logTestStop(Method m, Object[] p){
     logger.info("Stop test " + m.getName() + " with parameters " + Arrays.asList(p));
+  }
+
+  public void verifyGroupListInUa() {
+    if (Boolean.getBoolean("verifyUI")) { // Метод будет работать только при установке системного свойства.
+      Groups dbGroups = app.db().groups();      // получаем группы через БД.
+      Groups uiGroups = app.group().all();      // получаем группы из UI.
+      assertThat(uiGroups, equalTo(dbGroups     // для сравнения убираем из dbGroups
+              .stream()                         // атрибуты header и footer.
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
   }
 }
