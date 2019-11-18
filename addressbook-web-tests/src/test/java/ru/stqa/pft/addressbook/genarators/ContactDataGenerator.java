@@ -87,7 +87,7 @@ public class ContactDataGenerator {
                 contact.getEmail(),
                 contact.getEmail2(),
                 contact.getEmail3(),
-                contact.getGroup(),
+                // contact.getGroup(), // временно комментируем эту строку из-за того что мы удалили атрибут group.
                 contact.getPhoto().getPath()
                 ));
       }
@@ -107,7 +107,7 @@ public class ContactDataGenerator {
               .withEmail(String.format("a%s@gmail.com", i))
               .withEmail2(String.format("b%s@gmail.com", i))
               .withEmail3(String.format("c%s@gmail.com", i))
-              .withGroup("group1")
+              // .withGroup("group1") // временно комментируем эту строку из-за того что мы удалили атрибут group.
               .withPhoto(new File("src/test/resources/stru.png"))
       );
     }

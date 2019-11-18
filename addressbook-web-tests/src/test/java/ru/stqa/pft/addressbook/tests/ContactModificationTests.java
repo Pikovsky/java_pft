@@ -20,7 +20,8 @@ public class ContactModificationTests extends TestBase {
       app.contact().create(new ContactData()
               .withFirstname("test_name")
               .withLastname("test_surname")
-              .withGroup("test1"));
+              //.withGroup("test1") // временно комментируем эту строку из-за того что мы удалили атрибут group.
+      );
     }
   }
 

@@ -2,7 +2,6 @@
   <contact>
     <firstname>firstname 0</firstname>
     <secondname>lastname 0</secondname>
-    <group>group1</group>
     <homePhone>110</homePhone>
     <mobilePhone>330</mobilePhone>
     <workPhone>220</workPhone>
@@ -15,7 +14,6 @@
   <contact>
     <firstname>firstname 1</firstname>
     <secondname>lastname 1</secondname>
-    <group>group1</group>
     <homePhone>111</homePhone>
     <mobilePhone>331</mobilePhone>
     <workPhone>221</workPhone>
@@ -28,7 +26,6 @@
   <contact>
     <firstname>firstname 2</firstname>
     <secondname>lastname 2</secondname>
-    <group>group1</group>
     <homePhone>112</homePhone>
     <mobilePhone>332</mobilePhone>
     <workPhone>222</workPhone>
@@ -41,7 +38,6 @@
   <contact>
     <firstname>firstname 3</firstname>
     <secondname>lastname 3</secondname>
-    <group>group1</group>
     <homePhone>113</homePhone>
     <mobilePhone>333</mobilePhone>
     <workPhone>223</workPhone>

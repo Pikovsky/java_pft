@@ -2,7 +2,6 @@
   {
     "firstname": "firstname 0",
     "secondname": "lastname 0",
-    "group": "group1",
     "homePhone": "110",
     "mobilePhone": "330",
     "workPhone": "220",
@@ -15,7 +14,6 @@
   {
     "firstname": "firstname 1",
     "secondname": "lastname 1",
-    "group": "group1",
     "homePhone": "111",
     "mobilePhone": "331",
     "workPhone": "221",
@@ -28,7 +26,6 @@
   {
     "firstname": "firstname 2",
     "secondname": "lastname 2",
-    "group": "group1",
     "homePhone": "112",
     "mobilePhone": "332",
     "workPhone": "222",

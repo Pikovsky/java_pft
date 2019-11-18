@@ -7,7 +7,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -27,10 +29,13 @@ public class ContactData {
   @Column(name = "lastname")
   private String secondname;
 
-  @Expose
-  @Transient
-  private String group;
-  //transient private String group;
+//  @Expose
+//  @Transient
+//  private String group;
+//  //transient private String group;
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name="address_in_groups", joinColumns=@JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="group_id"))
+  private Set<GroupData> groups = new HashSet<>();
 
   @Expose
   @Column(name = "home")
@@ -79,8 +84,8 @@ public class ContactData {
   @Column(name = "photo") // Эту аннотацию можно было не указывать, т.к. имена класса и столбца совпадают
   @Type(type="text")
   private String photo; // В БД этот столбец типа mediumtext, что ближе к Strng. По этому
-  //private File photo; // меняем тип поля, а преобразования проводим в getter/setter-ах.
 
+  //private File photo; // меняем тип поля, а преобразования проводим в getter/setter-ах.
   public File getPhoto() {
     return new File(photo);
     //return photo;
@@ -167,14 +172,18 @@ public class ContactData {
     return this;
   }
 
-  public String getGroup() {
-    return group;
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
+//  public String getGroup() {
+//    return group;
+//  }
+
+//  public ContactData withGroup(String group) {
+//    this.group = group;
+//    return this;
+//  }
 
   public String getHomePhone() {
     return homePhone;
@@ -234,5 +243,10 @@ public class ContactData {
   @Override
   public int hashCode() {
     return Objects.hash(id, firstname, secondname);
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }
