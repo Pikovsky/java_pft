@@ -10,6 +10,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class DbHelper {
@@ -37,10 +38,47 @@ public class DbHelper {
 
   public Contacts contacts(){
     Session session = sessionFactory.openSession();
-    session.beginTransaction();
-    List<ContactData> result = session.createQuery( "from ContactData where deprecated = '0000-00-00'").list();
+    session.getTransaction().begin(); //
+   // session.beginTransaction();
+    List<ContactData> result = session.createQuery( "from ContactData where deprecated = '0000-00-00'").getResultList();//.list();
+            //session.createQuery("from ContactData where deprecated = '0000-00-00'", ContactData.class).getResultList();
     session.getTransaction().commit();
     session.close();
     return new Contacts(result);
+  }
+
+  public GroupData getGroupWithMaxIdFromDB2(){ // Эту спёртую  функцию я переделал.
+    Groups groupList = groups();
+    int maxId = 0;
+    GroupData groupWithLastId = null;
+    for (GroupData currentGroup: groupList){
+      //System.out.println("currentGroup = " + currentGroup);
+      if (currentGroup.getId() > maxId){
+        // System.out.println("currentGroup.getId() = " + currentGroup.getId());
+        maxId = currentGroup.getId();
+        groupWithLastId = currentGroup;
+      }
+    }
+    //System.out.println("maxId: "+ maxId);
+    //System.out.println("groupWithLastId = " + groupWithLastId);
+    return groupWithLastId;
+  }
+
+  public GroupData getGroupWithMaxIdFromDB(){
+    return this.groups()
+            .stream()
+            .max(Comparator.comparingInt(GroupData::getId))
+            .get()
+            ;
+  }
+
+  public ContactData contactFromDB(int id) {
+    Session session = sessionFactory.openSession();
+    session.getTransaction().begin();
+    List<ContactData> result =
+            session.createQuery( "from ContactData where id = '"+id+"'", ContactData.class).getResultList();
+    session.getTransaction().commit();
+    session.close();
+    return result.iterator().next();
   }
 }

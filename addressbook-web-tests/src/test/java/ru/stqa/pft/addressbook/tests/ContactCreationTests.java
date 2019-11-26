@@ -99,7 +99,12 @@ public class ContactCreationTests extends TestBase {
 
     Contacts after = app.contact().all();
     assertThat(after, equalTo(
-            before.withAdded(contact.withId(after.stream().mapToInt(c -> c.getId()).max().getAsInt()))));
+            before.withAdded(contact.withId(after
+                    .stream()
+                    .mapToInt(c -> c.getId())
+                    .max()
+                    .getAsInt()
+            ))));
   }
 
   @Test(enabled = false)

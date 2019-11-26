@@ -49,8 +49,18 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  private void selectContactById(int id) {
+  public void selectContactById(int id) {
     wd.findElement(By.cssSelector(String.format("input[value='%s']", id))).click();
+  }
+
+  public void addContactToGroup() {
+//    wd.findElement(By.xpath("//input[@type='submit']")).click();  //было в краденом.
+//    wd.findElement(By.xpath("//input[@name='add']")).click();
+    wd.findElement(By.name("add")).click(); //.xpath("//input[@name='add']")).click();
+  }
+  public void removeContactFromGroup() {
+//    wd.findElement(By.xpath("//input[@name='remove']")).click();   //было в краденом.
+    wd.findElement(By.name("remove")).click();
   }
 
   public void deleteSelectedContact() {

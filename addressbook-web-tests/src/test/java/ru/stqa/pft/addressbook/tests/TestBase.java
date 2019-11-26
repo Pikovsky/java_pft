@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
@@ -49,7 +51,27 @@ public class TestBase {
       Groups uiGroups = app.group().all();      // получаем группы из UI.
       assertThat(uiGroups, equalTo(dbGroups     // для сравнения убираем из dbGroups
               .stream()                         // атрибуты header и footer.
-              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .map((g) -> new GroupData()
+                      .withId(g.getId())
+                      .withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
+  }
+
+  public void verifyContactListInUI() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Contacts dbContacts = app.db().contacts();
+      //System.out.println("db" + dbContacts);
+      Contacts uiContacts = app.contact().all();
+      //System.out.println("ui" + uiContacts);
+      assertThat(uiContacts, equalTo(dbContacts.stream()
+              .map((g) -> new ContactData()
+                      .withId(g.getId())
+                      .withFirstname(g.getFirstname())
+                      .withLastname(g.getLastname())
+                      .withAllPhones(g.getAllPhones())
+                      .withAllEmails(g.getAllEmails())
+                      .withAddress(g.getAddress()))
               .collect(Collectors.toSet())));
     }
   }

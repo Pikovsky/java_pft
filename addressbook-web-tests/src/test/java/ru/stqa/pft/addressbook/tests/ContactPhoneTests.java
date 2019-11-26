@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -14,13 +16,47 @@ public class ContactPhoneTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().homePage();
-    if (app.contact().all().size() == 0) {
+    if (app.db().groups().size()==0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData()
+              .withName("  @BeforeMethod\n" +
+                      "  public void ensurePreconditions() {\n" +
+                      "    if (app.db().groups().size()==0) {\n" +
+                      "      app.goTo().groupPage();\n" +
+                      "      app.group().create(new GroupData()\n" +
+                      "              .withName(\"test1\")\n" +
+                      "              .withHeader(\"hiiiii\")\n" +
+                      "              .withFooter(\"fooo\"));\n" +
+                      "    }\n" +
+                      "    Groups groups = app.db().groups();\n" +
+                      "//    app.goTo().homePage();\n" +
+                      "//    if (app.contact().all().size() == 0) {\n" +
+                      "    if (app.db().contacts().size() == 0) {\n" +
+                      "      app.goTo().homePage();\n" +
+                      "      app.contact().create(new ContactData()\n" +
+                      "              .withFirstname(\"test_name\")\n" +
+                      "              .withLastname(\"test_surname\")\n" +
+                      "              .withAddress(\"Earth\")\n" +
+                      "              .withMobilePhone(\"+382345678901\")\n" +
+                      "              .withEmail(\"alfa@beta.com\")\n" +
+                      "              .inGroup(groups.iterator().next()));\n" +
+                      "    }\n" +
+                      "  }")
+              .withHeader("hiiiii")
+              .withFooter("fooo"));
+    }
+    Groups groups = app.db().groups();
+//    app.goTo().homePage();
+//    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
+      app.goTo().homePage();
       app.contact().create(new ContactData()
               .withFirstname("test_name")
               .withLastname("test_surname")
-              //.withGroup("test1") // временно комментируем эту строку из-за того что мы удалили атрибут group.
-      );
+              .withAddress("Earth")
+              .withMobilePhone("+382345678901")
+              .withEmail("alfa@beta.com")
+              .inGroup(groups.iterator().next()));
     }
   }
 
