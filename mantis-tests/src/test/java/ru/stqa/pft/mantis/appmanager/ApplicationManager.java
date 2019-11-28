@@ -61,4 +61,12 @@ public class ApplicationManager {
       fail(verificationErrorString); //Fails a test with the given message.
     }
   }
+
+  public HttpSession newSession(){
+    return new HttpSession(this);
+  }
+
+  public String getProperty(String key) {
+    return properties.getProperty(key);
+  }
 }
