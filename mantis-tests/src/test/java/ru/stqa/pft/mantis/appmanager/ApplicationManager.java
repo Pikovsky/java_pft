@@ -20,6 +20,7 @@ public class ApplicationManager {
   protected StringBuffer verificationErrors = new StringBuffer();
   private String browser;
   private RegistrationHelper registrationHelper;
+  private FtpHelper ftp;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -60,17 +61,24 @@ public class ApplicationManager {
     return registrationHelper;
   }
 
+  public FtpHelper ftp(){
+    if (this.ftp == null) {
+      this.ftp = new FtpHelper(this);
+    }
+    return this.ftp;
+  }
+
   public WebDriver getDriver() {
     if (this.wd == null){
       switch (browser) {
         case BrowserType.FIREFOX:
-          wd = new FirefoxDriver();
+          this.wd = new FirefoxDriver();
           break;
         case BrowserType.CHROME:
-          wd = new ChromeDriver();
+          this.wd = new ChromeDriver();
           break;
         case BrowserType.IE:
-          wd = new InternetExplorerDriver();
+          this.wd = new InternetExplorerDriver();
           break;
       }
       wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
