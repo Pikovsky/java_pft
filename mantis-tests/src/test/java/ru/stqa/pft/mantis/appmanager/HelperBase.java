@@ -1,15 +1,17 @@
-package ru.stqa.pft.addressbook.appmanager;
+package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.*;
 import java.io.File;
 
 public class HelperBase {
 
+  protected final ApplicationManager app;
   protected WebDriver wd;
   private boolean acceptNextAlert = true;
 
-  public HelperBase(WebDriver wd) {
-    this.wd = wd;
+  public HelperBase(ApplicationManager app) {
+    this.app = app;
+    this.wd = app.getDriver();
   }
 
   protected void type(By locator, String text) {
