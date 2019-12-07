@@ -23,6 +23,8 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
+  private MantisHelper mantisHelper;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -54,6 +56,20 @@ public class ApplicationManager {
 
   public String getProperty(String key) {
     return properties.getProperty(key);
+  }
+
+  public DbHelper db(){
+    if (this.dbHelper == null) {
+      this.dbHelper = new DbHelper();
+    }
+    return this.dbHelper;
+  }
+
+  public MantisHelper mantis(){
+    if (this.mantisHelper == null) {
+      this.mantisHelper = new MantisHelper(this);
+    }
+    return this.mantisHelper;
   }
 
   public RegistrationHelper registration() {
