@@ -25,6 +25,7 @@ public class ApplicationManager {
   private JamesHelper jamesHelper;
   private MantisHelper mantisHelper;
   private DbHelper dbHelper;
+  private SoapHelper soapHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -56,6 +57,13 @@ public class ApplicationManager {
 
   public String getProperty(String key) {
     return properties.getProperty(key);
+  }
+
+  public SoapHelper soap(){
+    if (this.soapHelper == null) {
+      this.soapHelper = new SoapHelper(this);
+    }
+    return this.soapHelper;
   }
 
   public DbHelper db(){
