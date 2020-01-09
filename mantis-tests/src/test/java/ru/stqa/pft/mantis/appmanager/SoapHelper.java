@@ -62,4 +62,14 @@ public class SoapHelper {
                             .intValue())
                     .withName(createdIssueData.getProject().getName()));
   }
+
+  public String getBugStatus(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+    MantisConnectPortType mc = getMantisConnect();
+    IssueData createdIssueData = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issueId));
+    // вывод на консоль членов перечисления статусов багрепората:
+//    ObjectRef[] result = mc.mc_enum_status("administrator", "root");// - perechislenie
+//    Arrays.stream(result).map(objectRef -> objectRef.getName()).forEach(System.out::println);
+    ObjectRef status = createdIssueData.getStatus(); //ObjectRef объект со String ( имя ) и BigInteger( id [это не issueId] ).
+    return status.getName(); // можно было записать в одну  строку, но я хотел визуализировать класс ObjectRef .
+  }
 }
