@@ -16,16 +16,18 @@ public class RestAssuredTests {
 
   @BeforeClass
   public void init(){
-    RestAssured.authentication = RestAssured.basic("814ab0b5d9ac02af6e51ffefb20a4d38", "");
+    RestAssured.authentication = RestAssured.basic("52c5391605f6ce7dc50ef9619ea2b354", "");
   }
 
   @Test
   public void testCreateIssue() {
     Set<Issue> oldIssues = getIssues();
+    System.out.println(oldIssues.size());// удалить
     Issue newIssue = new Issue()
             .withSubject("Test issue from RestAssure")
             .withDescription("New test issue from RestAssure");
     int issueId = createIssue(newIssue);
+    System.out.println(issueId);// удалить
     Set<Issue> newIssues = getIssues();
     oldIssues.add(newIssue
             .withId(issueId));
@@ -49,6 +51,7 @@ public class RestAssuredTests {
             .post("http://demo.bugify.com/api/issues.json")
             .asString()
             ;
+    System.out.println(json); // удалить
     return JsonParser.parseString(json).getAsJsonObject().get("issue_id").getAsInt();
   }
 }

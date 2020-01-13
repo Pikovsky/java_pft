@@ -1,4 +1,4 @@
-package ru.stqa.pft.rest;
+package ru.stqa.pft.sandbox.MyOnly.Gson;
 
 import java.util.Objects;
 

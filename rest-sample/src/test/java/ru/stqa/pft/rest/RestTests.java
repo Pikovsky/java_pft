@@ -1,15 +1,18 @@
 package ru.stqa.pft.rest;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import org.apache.http.client.fluent.Executor;
-import org.apache.http.client.fluent.Request;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.fluent.*;
 import org.apache.http.message.BasicNameValuePair;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
@@ -23,6 +26,7 @@ public class RestTests {
             .withSubject("Test issue")
             .withDescription("New test issue");
     int issueId = createIssue(newIssue);
+    skipIfNotFixed(issueId);
     Set<Issue> newIssues = getIssues();
     oldIssues.add(newIssue
             .withId(issueId));
@@ -42,18 +46,64 @@ public class RestTests {
   }
 
   private Executor getExecutor() {
-    return Executor.newInstance().auth("814ab0b5d9ac02af6e51ffefb20a4d38", "");
+    return Executor.newInstance().auth("52c5391605f6ce7dc50ef9619ea2b354", "");
   }
 
   private int createIssue(Issue newIssue) throws IOException {
-    String json = getExecutor()
-            .execute(Request.Post("http://demo.bugify.com/api/issues.json")
-                    .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
-                              new BasicNameValuePair("description", newIssue.getDescription())))
-            .returnContent()
-            .asString()
-            ;
+    Request request = Request.Post("http://demo.bugify.com/api/issues.json")
+                .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),  // можно и так
+                          new BasicNameValuePair("description", newIssue.getDescription()));
+//            .bodyForm(Form.form()                                                      // можно и так
+//                            .add("subject", newIssue.getSubject())
+//                            .add("description", newIssue.getDescription())
+//                            .build());
 
+    Response response = getExecutor().execute(request);
+
+    Content content = response.returnContent();
+
+    String json = content.asString();
+
+    JsonElement jsonElement = JsonParser.parseString(json);
+
+    return jsonElement.getAsJsonObject().get("issue_id").getAsInt();
+  }
+
+  public int createIssue2(Issue newIssue) throws IOException { //версия без FluentInterface
+    List<NameValuePair> params = new ArrayList<NameValuePair>();
+    params.add(new BasicNameValuePair("subject", newIssue.getSubject()));
+    params.add(new BasicNameValuePair("description", newIssue.getDescription()));
+    UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params);
+    Request post = Request.Post("http://demo.bugify.com/api/issues.json").body(entity);
+    Response response = getExecutor().execute(post);
+    String json = response.returnContent().toString();
     return JsonParser.parseString(json).getAsJsonObject().get("issue_id").getAsInt();
+  }
+
+  public void skipIfNotFixed(int issueId) throws IOException {
+    if (isIssueOpen(issueId)) {
+      throw new SkipException("Ignored because of issue " + issueId);
+    }
+  }
+
+  public boolean isIssueOpen(int issueId) throws IOException {
+    String status = getBugStatus(issueId);
+    System.out.println("FYI, status of attached bug with id = " + issueId + " is " + status);
+    return !status.equals("closed");
+  }
+
+  public String getBugStatus(int issueId) throws IOException {
+    String linkBody = "http://demo.bugify.com/api/issues/";
+    String linkIssueId = String.valueOf(issueId);
+    String linkSuffix = ".json?";
+    Request request = Request.Get(linkBody + linkIssueId + linkSuffix);
+    Response response = getExecutor().execute(request);
+    Content content = response.returnContent();
+    String json = content.toString();
+    JsonElement parsed = JsonParser.parseString(json);
+    JsonElement issuesJson = parsed.getAsJsonObject().get("issues");
+    Set<Issue> setOfIssues = new Gson().fromJson(issuesJson, new TypeToken<Set<Issue>>() {}.getType());
+    Iterator<Issue> iterator = setOfIssues.iterator();
+    return iterator.next().getState_name();
   }
 }
